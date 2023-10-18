@@ -1,36 +1,107 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+Este es un proyecto creado con Next js 13 para mostrar la funcionalidad de prettier-plugin-tailwindcss y tailwindcss-animated
 
-## Getting Started
 
-First, run the development server:
+# Inicializar el proyecto en Nextjs
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+```
+npx create-next-app@latest
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+# Hacemos la instalación de prettier
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+```
+npm install -D prettier
+```
 
-## Learn More
+Vamos a crear un archivo .JSON
 
-To learn more about Next.js, take a look at the following resources:
+`.prettierrc.json`
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Para corroborar que prettier esta funcionando escribimos
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+```
+npx prettier . --write
+```
 
-## Deploy on Vercel
+y luego
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+```
+npx prettier . --checked
+```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+# Para añadir el plugin de tailwindcss 
+
+```
+npm install -D prettier prettier-plugin-tailwindcss
+```
+
+Creamos un archivo llamado
+
+`prettier.config.js`
+
+y dentro del mismo escribimos la siguiente línea.
+
+`module.exports = {
+  plugins: ['prettier-plugin-tailwindcss'],
+}`
+
+Esto nos reorganizará todas las clases de tailwindcss que le otorgamos a nuestras etiquetas de la siguiente manera
+
+Primero se ordenan las clases en la capa de base
+- @tailwind base;
+
+Luego se ordenan las clases en la capa de componentes
+
+- @tailwind components;
+
+Y por último se ordenan las clases en la capa de utilidades
+
+- @tailwind utilities;
+
+Este orden podemos encontrarlo en el archivo de 
+
+` globals.css
+`
+
+
+
+# Instalación de tailwindcss-animated
+
+En este caso, al haber inicializado el proyecto con Next js, ya tenemos instalado tailwindcss de manera que ya podemos instalar el animated directamente.
+
+```
+npm install -D tailwindcss-animated
+```
+
+### En caso de inicializar el proyecto con otro framework y tener que instalar tailwind manualmente, los pasos serían los siguientes
+
+```
+npm install -D tailwindcss
+```
+```
+npx tailwindcss init
+```
+```
+npm install -D tailwindcss-animated
+```
+
+Por último en el archivo
+` tailwind.config.js
+`
+
+incluimos esta línea
+
+`
+module.exports = {
+  plugins: [
+    require('tailwindcss-animated')
+  ],
+}
+`
+
+Para ver la funcionalidad y todas las animaciones disponibles puede hacerse una visualizacion en el siguiente sitio
+
+
+https://www.tailwindcss-animated.com/
+
